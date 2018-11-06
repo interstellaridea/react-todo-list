@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 
-export default function App () {
-  return (<div> this is my todo list app! </div>);
+export default class App extends Component {
+
+  render() {
+    return(
+      <div>
+        <h2>Todo List</h2>
+      </div>
+    );
+  }
 }
