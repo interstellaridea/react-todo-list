@@ -7,7 +7,8 @@ export default function(state = [], action) {
       return [ ...state, action.payload ];
 
     case REMOVE_TASK:
-      return _.reject(state, state[action.payload]);
+      // action.payload is .created_at value
+      return _.reject(state, task => task.created_at === action.payload)
 
     default:
       return state;
