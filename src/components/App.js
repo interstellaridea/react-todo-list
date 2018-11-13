@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import TodoForm from './todoForm';
 
-export default class App extends Component {
-
-  handleSubmit(values) {
-    console.log(`todoForm: ${values}`);
-  }
+import PostNewTodo from './PostNewTodo';
+import ShowTodos from './ShowTodos';
+class App extends Component {
 
   render() {
     return(
       <div>
         <h2>Todo List</h2>
-        <TodoForm onSubmit={this.handleSubmit} />
+        <PostNewTodo />
+        <ShowTodos />
       </div>
     );
   }
-}
+};
+
+export default App;
