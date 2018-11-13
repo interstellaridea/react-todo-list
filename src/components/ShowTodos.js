@@ -13,18 +13,16 @@ class ShowTodos extends Component {
     return this.props.todos.map((item, index) => {
       return (
         <li key={index}>
-          {item.task} | {item.importance}
-          <button data-key={index} onClick={this.onDeleteClick.bind(this)}>&times;</button>
+          {item.task} | {item.importance} |  {item.created_at}
+          <button data-key={item.created_at} onClick={this.onDeleteClick.bind(this)}>&times;</button>
         </li>
       );
     });
   }
 
   onDeleteClick(e) {
-    // debugger;
-    const id = e.target.getAttribute('data-key');
-    console.log(`Yo the data-key is ${id}`)
-    this.props.removeTask(id);
+    const timeID = e.target.getAttribute('data-key');
+    this.props.removeTask(timeID);
   }
 
   render() {
