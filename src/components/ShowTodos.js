@@ -8,7 +8,7 @@ class ShowTodos extends Component {
     }
 
     return this.props.todos.map((item, index) => {
-      return <li key={index}>{item.task}</li>
+      return <li key={index}>{item.task} | {item.importance}</li>
     });
 
   }

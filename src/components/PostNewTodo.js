@@ -21,6 +21,35 @@ class PostNewTodo extends Component {
           name="task"
           placeholder="new todo"
         />
+        <div>
+          <label>
+            <Field
+              component="input"
+              name="importance"
+              type="radio"
+              value="low"
+            />
+            Low
+          </label>
+          <label>
+            <Field
+              component="input"
+              name="importance"
+              type="radio"
+              value="medium"
+            />
+            Medium
+          </label>
+          <label>
+            <Field
+              component="input"
+              name="importance"
+              type="radio"
+              value="high"
+            />
+            High
+          </label>          
+        </div>
         <button type="submit">Add Todo</button>
       </form>
     );
