@@ -32,6 +32,7 @@ class PostNewTodo extends Component {
             Low
           </label>
           <label>
+        {/* maybe have values ranther than low, med, high*/}
             <Field
               component="input"
               name="importance"
