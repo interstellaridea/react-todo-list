@@ -1,5 +1,5 @@
 import timestamp from 'time-stamp';
-import { SAVE_TODO, REMOVE_TASK } from './types';
+import { SAVE_TODO, REMOVE_TODO } from './types';
 
 
 export function saveTodo(todo) { 
@@ -8,5 +8,5 @@ export function saveTodo(todo) {
 }
 
 export function removeTask(id) {
-  return { type: REMOVE_TASK, payload: id}
+  return { type: REMOVE_TODO, payload: id}
 }
