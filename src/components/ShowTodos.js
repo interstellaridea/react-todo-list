@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { RIEInput  } from 'riek'
 
 import * as actions from '../actions';
 
@@ -8,12 +9,18 @@ class ShowTodos extends Component {
   renderTodos() {
     if(!this.props.todos) {
       return;
+      
     }
-
     return this.props.todos.map((item, index) => {
       return (
         <li key={index}>
-          {item.task} | {item.importance} |  {item.created_at}
+          {/* {item.task} | {item.importance} |  {item.created_at} */}
+          <RIEInput
+            value={item.task}
+            propName="task"
+            change={this.props.updateTodo}
+            defaultProps={{index,...item}}
+          /> 
           <button data-key={item.created_at} onClick={this.onDeleteClick.bind(this)}>&times;</button>
         </li>
       );
@@ -36,6 +43,7 @@ class ShowTodos extends Component {
     );
   }
 };
+
 
 const mapStateToProps = (state) => {
   return { todos: state.todo }
