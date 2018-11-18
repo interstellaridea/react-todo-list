@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import timestamp from 'time-stamp';
 import { SAVE_TODO, UPDATE_TODO, REMOVE_TODO } from './types';
 
@@ -9,8 +10,8 @@ export function saveTodo(todo) {
 
 export function updateTodo(task) {
   // creates payload with components default props and new input edit
-  // creat a #updated_at prop
-  const payload = {...this.defaultProps, ...task, updated_at: timestamp.utc('YYYYMMDDHHmmssms')};
+  // create a #updated_at prop, remove #index prop
+  const payload = {..._.omit(this.defaultProps, 'index'), ...task, updated_at: timestamp.utc('YYYYMMDDHHmmssms')};
   return { type: UPDATE_TODO, payload };
 }
 

@@ -8,10 +8,9 @@ export default function(state = [], action) {
     
     case UPDATE_TODO:
       // return new state by finding with index
-      const cleaned = _.omit(action.payload, 'index'); // because im using .defaultProps with riek i have index
       const filteredState = state.filter( todo => todo.created_at !== action.payload.created_at); //return all but the matching entry 
-      
-      return [ ...filteredState, cleaned];;
+
+      return [ ...filteredState, action.payload];
 
     case REMOVE_TODO:
       // action.payload is .created_at value
