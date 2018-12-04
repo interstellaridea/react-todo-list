@@ -35,14 +35,13 @@ export default class TodoProvider extends Component {
   };
 
   removeTodo = e => {
-
-     // elemont 
-    console.log(e.target.getAttribute("data-key"));
+    // Grab the data-key attr for removal
     const id = e.target.getAttribute("data-key");
-    console.log(e.target.parentNode);
+    
     this.setState({
-      todo_list: _.omit(this.state, id)
+      todo_list: _.omit(this.state.todo_list, id)
     });
+  
   };
 
   render() {

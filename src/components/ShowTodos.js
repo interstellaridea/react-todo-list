@@ -3,18 +3,19 @@ import React, { Component } from "react";
 import { TodoContext } from "../TodoContext";
 
 class ShowTodos extends Component {
-  //  need to resolve how two buttons get rendered after delete
-  //  once fixed , i may not need to touch anything in Provider
+
   renderTodos = ({ todo_list }, removeTodo) => {
-    return _.map(todo_list, (todo, key) => {
-      return todo && key ? (
-        <div key={key}>
-          {todo.todo}
-          <button data-key={key} onClick={removeTodo}>
-            X
-          </button>
-        </div>
-      ) : null;
+    if (_.isEmpty(todo_list)) {
+      return (
+        <h2>Hey! <br /> Add some Todos to get shit done</h2>
+      )
+    }
+
+    return Object.keys(todo_list).map( id => {
+      return (<div key={id}>
+        {todo_list[id].todo}
+        <button data-key={id} onClick={id => removeTodo(id)} >X</button>
+      </div>)
     });
   };
 
