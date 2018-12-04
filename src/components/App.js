@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 
-import PostNewTodo from './PostNewTodo';
+import TodoProvider from '../TodoProvider';
 import ShowTodos from './ShowTodos';
+import NewTodo from './NewTodo';
+
 class App extends Component {
 
   render() {
     return(
       <div>
-        <h2>Todo List</h2>
-        <PostNewTodo />
-        <ShowTodos />
+        <TodoProvider>
+          <NewTodo />
+          <ShowTodos />
+        </TodoProvider>
       </div>
     );
   }
