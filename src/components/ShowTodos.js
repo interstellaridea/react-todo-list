@@ -1,52 +1,37 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { RIEInput  } from 'riek'
-
-import * as actions from '../actions';
+import _ from "lodash";
+import React, { Component } from "react";
+import { TodoContext } from "../TodoContext";
 
 class ShowTodos extends Component {
-
-  renderTodos() {
-    if(!this.props.todos) {
-      return;
-      
-    }
-    return this.props.todos.map((item, index) => {
-      return (
-        <li key={index}>
-          {/* {item.task} | {item.importance} |  {item.created_at} */}
-          <RIEInput
-            value={item.task}
-            propName="task"
-            change={this.props.updateTodo}
-            defaultProps={{index,...item}}
-          /> 
-          <button data-key={item.created_at} onClick={this.onDeleteClick.bind(this)}>&times;</button>
-        </li>
-      );
+  //  need to resolve how two buttons get rendered after delete
+  //  once fixed , i may not need to touch anything in Provider
+  renderTodos = ({ todo_list }, removeTodo) => {
+    return _.map(todo_list, (todo, key) => {
+      return todo && key ? (
+        <div key={key}>
+          {todo.todo}
+          <button data-key={key} onClick={removeTodo}>
+            X
+          </button>
+        </div>
+      ) : null;
     });
-  }
-
-  onDeleteClick(e) {
-    const timeID = e.target.getAttribute('data-key');
-    this.props.removeTask(timeID);
-  }
+  };
 
   render() {
-    return(
-      <div>
-        todos created:
-        <ul>
-          {this.renderTodos()}
-        </ul>
-      </div>
+    return (
+      <TodoContext.Consumer>
+        {context =>
+          context.todos.todo_list ? (
+            <React.Fragment>
+              <p>show todos:</p>
+              {this.renderTodos(context.todos, context.removeTodo)}
+            </React.Fragment>
+          ) : null
+        }
+      </TodoContext.Consumer>
     );
   }
-};
-
-
-const mapStateToProps = (state) => {
-  return { todos: state.todo }
 }
 
-export default connect(mapStateToProps, actions)(ShowTodos);
+export default ShowTodos;
