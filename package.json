@@ -9,7 +9,7 @@
     "react-dom": "^16.6.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
-    "riek": "^1.1.0",
+    "riek2": "^1.2.0",
     "styled-components": "^4.1.2",
     "time-stamp": "^2.2.0"
   },
