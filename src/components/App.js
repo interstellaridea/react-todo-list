@@ -7,6 +7,7 @@ import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/
 import TodoProvider from '../TodoProvider';
 import ShowTodos from './ShowTodos';
 import NewTodo from './NewTodo';
+import Nav from './Nav';
 
 const styles = {
   root: {
@@ -56,18 +57,19 @@ class App extends Component {
     const { classes } = this.props;
     return(
       <MuiThemeProvider theme={this.theme()}>
-        <Grid container spacing={0} className={classes.root}>
-        <Typography variant='h4'>
-          Cached Tasks
-          <span onClick={() => this.toggleTheme() }>{ emoji('🍪', )}</span>
-        </Typography>
         <CssBaseline/>
-        <TodoProvider>
-          <Grid item className={classes.newTodo} sm={12}>
-            <NewTodo />
-          </Grid>
-          <ShowTodos />
-        </TodoProvider>
+        <Grid container spacing={0} className={classes.root}>
+          <Typography variant='h4'>
+            Cached Tasks
+            <span onClick={() => this.toggleTheme() }>{ emoji('🍪', )}</span>
+          </Typography>
+          <TodoProvider>
+            <Grid item className={classes.newTodo} sm={12}>
+              <NewTodo />
+            </Grid>
+            <ShowTodos />
+            <Nav />
+          </TodoProvider>
         </Grid>
       </MuiThemeProvider>
     );
