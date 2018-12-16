@@ -41,13 +41,10 @@ export default class TodoProvider extends Component {
   };
 
   removeTodo = id => {
-    // Grab the data-key attr for removal
-    // const id = e.target.getAttribute("data-key");
-    
     this.setState({
       todo_list: _.omit(this.state.todo_list, id)
-    });
-  
+    }, () => localStorage.setItem("CacheTask", JSON.stringify(this.state)) )
+    console.log('cached removals');
   };
 
   updateTodo = (key, updated_value) => {
