@@ -7,6 +7,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+
+
 import { TodoContext } from "../TodoContext";
 
 const handleUpdateChange = ({todo: updated_value }, key, updateTodo) => {
@@ -16,26 +18,26 @@ const handleUpdateChange = ({todo: updated_value }, key, updateTodo) => {
 export default () => {
   return (
     <TodoContext.Consumer>
-    { ({todo_list, updateTodo, removeTodo}) => (
-      <List component='nav'>
-        {Object.keys(todo_list).map(key => (
-          <ListItem key={key}>
-            <ListItemText>
-              <RIEInput
-                change={ e => handleUpdateChange(e, key, updateTodo)}
-                value={_.capitalize( todo_list[key].todo )}
-                propName='todo'
-                />
-            </ListItemText>
-              <ListItemIcon>
-                <IconButton onClick={ () => removeTodo(key) } aria-label="Delete">
-                  <DeleteIcon fontSize="small" />
-                </IconButton>                
-            </ListItemIcon>
-          </ListItem>
-          ))}
-      </List>
-    )}
+      { ({todo_list, updateTodo, removeTodo}) => (
+        <List component='nav' style={{overflowY: "auto", maxHeight: "400px"}} >
+          {Object.keys(todo_list).map(key => (
+              <ListItem key={key}>
+                <ListItemText>
+                  <RIEInput
+                    change={ e => handleUpdateChange(e, key, updateTodo)}
+                    value={_.capitalize( todo_list[key].todo )}
+                    propName='todo'
+                    />
+                </ListItemText>
+                  <ListItemIcon>
+                    <IconButton onClick={ () => removeTodo(key) } aria-label="Delete">
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>                
+                </ListItemIcon>
+              </ListItem>
+            ))}
+        </List>
+      )}
   </TodoContext.Consumer>    
   )
 }
