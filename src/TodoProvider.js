@@ -24,7 +24,8 @@ export default class TodoProvider extends Component {
       msg: "activated",
       addTodo: this.addTodo,
       updateTodo: this.updateTodo,
-      removeTodo: this.removeTodo
+      removeTodo: this.removeTodo,
+      sortTodos: this.sortTodos
     }
 
   }
@@ -37,14 +38,14 @@ export default class TodoProvider extends Component {
     this.setState({
       todo_list: { ...this.state.todo_list, [stamp]: todo }
     },() => localStorage.setItem("CacheTask", JSON.stringify(this.state)) )
-      console.log('cached new todo');
+      // console.log('cached new todo');
   };
 
   removeTodo = id => {
     this.setState({
       todo_list: _.omit(this.state.todo_list, id)
     }, () => localStorage.setItem("CacheTask", JSON.stringify(this.state)) )
-    console.log('cached removals');
+    // console.log('cached removals');
   };
 
   updateTodo = (key, updated_value) => {
@@ -53,12 +54,25 @@ export default class TodoProvider extends Component {
     this.setState({
       todo_list: {...this.state.todo_list, [key]: update }
     }, () => localStorage.setItem("CacheTask", JSON.stringify(this.state)) )
-    console.log('cached updates');
-
+    // console.log('cached updates');
   }
 
+  sortTodos = status => {
+    const { todo_list } = this.state;
+    if (!status) {
+        this.setState({
+          todo_list: Object.entries(todo_list).reverse().reduce((obj, [key, val]) => ({...obj, [key]: val}), {})
+        }, () => localStorage.setItem("CacheTask", JSON.stringify(this.state)) )      
+    } else {
+        this.setState({
+          todo_list: Object.entries(todo_list).sort().reduce((obj, [key, val]) => ({...obj, [key]: val}), {})
+        }, () => localStorage.setItem("CacheTask", JSON.stringify(this.state)) )
+    }
+  };
+
+
   render() {
-    console.log(`Provider: ${JSON.stringify(this.state, null, 2)}`);
+    // console.log(`Provider: ${JSON.stringify(this.state, null, 2)}`);/
     return (
       <TodoContext.Provider value={this.state}>
         {this.props.children}
