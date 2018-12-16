@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component,} from 'react';
 import emoji from 'react-easy-emoji'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import TodoProvider from '../TodoProvider';
 import ShowTodos from './ShowTodos';
 import NewTodo from './NewTodo';
@@ -11,7 +11,12 @@ import NewTodo from './NewTodo';
 const styles = {
   root: {
     flexGrow: 1,
-    
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: "100vh",
+    padding: "25px",
+    textAlign: "center",
   },
   newTodo: {
     textAlign: 'center',
@@ -19,18 +24,42 @@ const styles = {
   }
 }
 
-/// onClick this return
-// if (true)
-
-
 class App extends Component {
+  state = {
+    on: false,
+    themeType: 'light'
+  }
+
+  theme = () => createMuiTheme({
+    palette: {
+      type: this.state.themeType
+    },
+    typography: {
+      useNextVariants: true,
+    },    
+  })  
+
+  toggleTheme = () => {
+    if (!this.state.on) {
+      this.setState({
+        on: !this.state.on,
+        themeType: 'dark'
+      })
+    } else {
+      this.setState({
+        on: !this.state.on,
+        themeType: 'light'
+      })
+    }
+  }
   render() {
     const { classes } = this.props;
     return(
-      <Fragment>
-        <Grid container justify='center' className={classes.root}>
-        <Typography variant='headline'>
-        { emoji('Cached Tasks 🍪')}
+      <MuiThemeProvider theme={this.theme()}>
+        <Grid container spacing={0} className={classes.root}>
+        <Typography variant='h4'>
+          Cached Tasks
+          <span onClick={() => this.toggleTheme() }>{ emoji('🍪', )}</span>
         </Typography>
         <CssBaseline/>
         <TodoProvider>
@@ -40,7 +69,7 @@ class App extends Component {
           <ShowTodos />
         </TodoProvider>
         </Grid>
-      </Fragment>
+      </MuiThemeProvider>
     );
   }
 };
