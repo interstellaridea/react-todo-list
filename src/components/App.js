@@ -5,7 +5,6 @@ import ShowTodos from './ShowTodos';
 import NewTodo from './NewTodo';
 
 class App extends Component {
-
   render() {
     return(
       <div>
