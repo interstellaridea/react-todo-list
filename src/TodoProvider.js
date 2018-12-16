@@ -10,17 +10,24 @@ export default class TodoProvider extends Component {
         todo: "tester",
         created_at: "201812034213"
       }
+      
   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      todo_list: {
+        201812034213: {
+          todo: "tester",
+          created_at: "201812034213"
+        }
+      },
+      msg: "activated",
+      addTodo: this.addTodo,
+      updateTodo: this.updateTodo,
+      removeTodo: this.removeTodo
+    }
 
-  state = {
-    todo_list: {
-      201812034213: {
-        todo: "tester",
-        created_at: "201812034213"
-      }
-    },
-    msg: "activated"
-  };
+  }
 
   addTodo = todo => {
     // time stamp todo before saving to context
@@ -29,14 +36,13 @@ export default class TodoProvider extends Component {
 
     this.setState({
       todo_list: { ...this.state.todo_list, [stamp]: todo }
-    });
-    // set state to cache for user
-    localStorage.setItem("CacheTask", JSON.stringify(this.state));
+    },() => localStorage.setItem("CacheTask", JSON.stringify(this.state)) )
+      console.log('cached new todo');
   };
 
-  removeTodo = e => {
+  removeTodo = id => {
     // Grab the data-key attr for removal
-    const id = e.target.getAttribute("data-key");
+    // const id = e.target.getAttribute("data-key");
     
     this.setState({
       todo_list: _.omit(this.state.todo_list, id)
@@ -44,16 +50,20 @@ export default class TodoProvider extends Component {
   
   };
 
+  updateTodo = (key, updated_value) => {
+    let stamp = timeStamp.utc("YYYYMMDDmmss");
+    const update = { todo: updated_value, updated_at: stamp, created_at: key }
+    this.setState({
+      todo_list: {...this.state.todo_list, [key]: update }
+    }, () => localStorage.setItem("CacheTask", JSON.stringify(this.state)) )
+    console.log('cached updates');
+
+  }
+
   render() {
     console.log(`Provider: ${JSON.stringify(this.state, null, 2)}`);
     return (
-      <TodoContext.Provider
-        value={{
-          todos: this.state,
-          addTodo: this.addTodo,
-          removeTodo: this.removeTodo
-        }}
-      >
+      <TodoContext.Provider value={this.state}>
         {this.props.children}
       </TodoContext.Provider>
     );
