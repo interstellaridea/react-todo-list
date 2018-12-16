@@ -1,0 +1,8 @@
+{
+  "terminal.integrated.fontFamily": "monospace",
+  "terminal.integrated.fontSize": 15,
+  "editor.fontFamily": "'Dank Mono', Monaco, 'Courier New', monospace",
+  "editor.tabSize": 2,
+  "editor.fontSize": 18,
+  "editor.fontWeight": "500"
+}
